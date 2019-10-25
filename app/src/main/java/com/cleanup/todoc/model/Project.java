@@ -6,6 +6,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.cleanup.todoc.database.dao.ProjectDao;
+import com.cleanup.todoc.database.todoc_master_database;
+
 /**
  * <p>Models for project in which tasks are included.</p>
  *
@@ -38,7 +41,7 @@ public class Project {
      * @param name  the name of the project to set
      * @param color the hex (ARGB) code of the color associated to the project to set
      */
-    private Project(long id, @NonNull String name, @ColorInt int color) {
+    public Project(long id, @NonNull String name, @ColorInt int color) {
         this.id = id;
         this.name = name;
         this.color = color;

@@ -15,7 +15,7 @@ import java.util.Comparator;
  */
 @Entity(foreignKeys = @ForeignKey(entity = Project.class,
         parentColumns = "id",
-        childColumns = "userId"))
+        childColumns = "projectId"))
 public class Task {
     /**
      * The unique identifier of the task
@@ -27,6 +27,10 @@ public class Task {
      * The unique identifier of the project associated to the task
      */
     private long projectId;
+    /**
+     * The unique identifier of the project associated to the task
+     */
+    private Boolean done;
 
     /**
      * The name of the task
@@ -54,6 +58,7 @@ public class Task {
         this.setProjectId(projectId);
         this.setName(name);
         this.setCreationTimestamp(creationTimestamp);
+        this.done=false;
     }
 
     /**
@@ -72,6 +77,10 @@ public class Task {
      */
     private void setId(long id) {
         this.id = id;
+    }
+
+    public long getProjectId() {
+        return projectId;
     }
 
     /**
@@ -110,6 +119,29 @@ public class Task {
      */
     private void setName(@NonNull String name) {
         this.name = name;
+    }
+
+    /**
+     * Gets if the task is done or not
+     *
+     * @return done the state of the task
+     */
+
+    public Boolean getDone() {
+        return done;
+    }
+
+    /**
+     * Sets if the task is done or not
+     *
+     * @param done the state of the task to set
+     */
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
+    public long getCreationTimestamp() {
+        return creationTimestamp;
     }
 
     /**

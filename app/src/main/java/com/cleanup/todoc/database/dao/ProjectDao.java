@@ -8,6 +8,8 @@ import android.arch.persistence.room.Query;
 
 import com.cleanup.todoc.model.Project;
 
+import java.util.List;
+
 /**
  * Created by Skiti on 22/10/2019
  */
@@ -18,4 +20,7 @@ public interface ProjectDao {
 
     @Query("SELECT * FROM Project WHERE id = :projectId")
     LiveData<Project> getProject(long projectId);
+
+    @Query("SELECT * FROM Project")
+    LiveData<List<Project>> getAllProjects();
 }

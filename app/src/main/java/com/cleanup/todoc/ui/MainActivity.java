@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void setTasks(@NonNull List<Task> tasks){
         this.tasks = tasks;
+        updateTasks();
     }
 
     @Override
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * Updates the list of tasks in the UI
      */
     private void updateTasks() {
-        if (9== 0) {
+        if (tasks.size()== 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
         } else {
@@ -258,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     break;
 
             }
-            getTasks();
             adapter.updateTasks(tasks);
         }
     }

@@ -38,20 +38,16 @@ public class MainActivityInstrumentedTest {
         MainActivity activity = rule.getActivity();
         TextView lblNoTask = activity.findViewById(R.id.lbl_no_task);
         RecyclerView listTasks = activity.findViewById(R.id.list_tasks);
-
         onView(withId(R.id.fab_add_task)).perform(click());
         onView(withId(R.id.txt_task_name)).perform(replaceText("Tâche example"));
         onView(withId(android.R.id.button1)).perform(click());
-
         // Check that lblTask is not displayed anymore
         assertThat(lblNoTask.getVisibility(), equalTo(View.GONE));
         // Check that recyclerView is displayed
         assertThat(listTasks.getVisibility(), equalTo(View.VISIBLE));
         // Check that it contains one element only
         assertThat(listTasks.getAdapter().getItemCount(), equalTo(1));
-
         onView(withId(R.id.img_delete)).perform(click());
-
         // Check that lblTask is displayed
         assertThat(lblNoTask.getVisibility(), equalTo(View.VISIBLE));
         // Check that recyclerView is not displayed anymore

@@ -1,14 +1,10 @@
 package com.cleanup.todoc.ui;
-
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.Nullable;
-
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ProjectDataRepository;
 import com.cleanup.todoc.repository.TaskDataRepository;
-
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -22,7 +18,6 @@ public class TaskViewModel extends ViewModel {
     private final TaskDataRepository mTaskDataSource;
     private final ProjectDataRepository mProjectDataSource;
     private final Executor executor;
-
     private LiveData<List<Project>> allProjects;
     private int Taskcount;
 
@@ -31,7 +26,6 @@ public class TaskViewModel extends ViewModel {
         this.mProjectDataSource = projectDataSource;
         this.executor = executor;
     }
-
     public void init() {
         if (this.allProjects != null) {
             return;
@@ -39,15 +33,12 @@ public class TaskViewModel extends ViewModel {
         allProjects = mProjectDataSource.getAllProjects();
     }
 
-
     // -------------
     // FOR PROJECT
     // -------------
 
     public LiveData<List<Project>> getAllProjects() { return this.mProjectDataSource.getAllProjects();  }
-
     public LiveData<Project> getProject(long userId) { return this.mProjectDataSource.getProject(userId);  }
-
     public void createProject(Project project) { this.mProjectDataSource.createProject(project);  }
 
     // -------------
@@ -57,15 +48,12 @@ public class TaskViewModel extends ViewModel {
     public LiveData<Task> getTasks(long userId) {
         return mTaskDataSource.getTask(userId);
     }
-
     public LiveData<Integer> getTaskCount(){
         return mTaskDataSource.getTaskCount();
     }
-
     public LiveData<List<Task>> getAllTasks() {
         return mTaskDataSource.getAllTasks();
     }
-
     public void createTask(Task task) {
         executor.execute(() -> {
             mTaskDataSource.createTask(task);

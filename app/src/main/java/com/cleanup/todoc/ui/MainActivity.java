@@ -98,20 +98,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
-
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
-
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                showAddTaskDialog();
-            }
+            public void onClick(View view) { showAddTaskDialog(); }
         });
         this.configureViewModel();
         this.getTasks();
@@ -141,27 +135,22 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.filter_alphabetical) {
-            sortMethod = SortMethod.ALPHABETICAL;
-        } else if (id == R.id.filter_alphabetical_inverted) {
-            sortMethod = SortMethod.ALPHABETICAL_INVERTED;
-        } else if (id == R.id.filter_oldest_first) {
-            sortMethod = SortMethod.OLD_FIRST;
-        } else if (id == R.id.filter_recent_first) {
-            sortMethod = SortMethod.RECENT_FIRST;
-        }
+        if (id == R.id.filter_alphabetical)
+        { sortMethod = SortMethod.ALPHABETICAL; }
+        else if (id == R.id.filter_alphabetical_inverted)
+        { sortMethod = SortMethod.ALPHABETICAL_INVERTED; }
+        else if (id == R.id.filter_oldest_first)
+        { sortMethod = SortMethod.OLD_FIRST; }
+        else if (id == R.id.filter_recent_first)
+        { sortMethod = SortMethod.RECENT_FIRST; }
         getTasks();
         updateTasks();
-
-        return super.onOptionsItemSelected(item);
-    }
+        return super.onOptionsItemSelected(item); }
 
     @Override
     public void onDeleteTask(Task task) {
         this.mTaskViewModel.deleteTask(task.getId());
-        updateTasks();
-    }
+        updateTasks(); }
 
     /**
      * Called when the user clicks on the positive button of the Create Task Dialog.
@@ -173,30 +162,22 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogEditText != null && dialogSpinner != null) {
             // Get the name of the task
             String taskName = dialogEditText.getText().toString();
-
             // Get the selected project to be associated to the task
             Project taskProject = null;
             if (dialogSpinner.getSelectedItem() instanceof Project) {
-                taskProject = (Project) dialogSpinner.getSelectedItem();
-            }
-
+                taskProject = (Project) dialogSpinner.getSelectedItem(); }
             // If a name has not been set
             if (taskName.trim().isEmpty()) {
-                dialogEditText.setError(getString(R.string.empty_task_name));
-            }
+                dialogEditText.setError(getString(R.string.empty_task_name)); }
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 Task task = new Task(
                         0,
                         taskProject.getId(),
                         taskName,
-                        new Date().getTime()
-                );
-
+                        new Date().getTime());
                 addTask(task);
-
                 updateTasks();
-
                 dialogInterface.dismiss();
             }
             // If name has been set, but project has not been set (this should never occur)
@@ -205,22 +186,16 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
         }
         // If dialog is aloready closed
-        else {
-            dialogInterface.dismiss();
-        }
+        else { dialogInterface.dismiss(); }
     }
-
     /**
      * Shows the Dialog for adding a Task
      */
     private void showAddTaskDialog() {
         final AlertDialog dialog = getAddTaskDialog();
-
         dialog.show();
-
         dialogEditText = dialog.findViewById(R.id.txt_task_name);
         dialogSpinner = dialog.findViewById(R.id.project_spinner);
-
         populateDialogSpinner();
     }
 
@@ -257,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 case OLD_FIRST:
                     Collections.sort(tasks, new Task.TaskOldComparator());
                     break;
-
             }
             adapter.updateTasks(tasks);
         }
@@ -271,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @NonNull
     private AlertDialog getAddTaskDialog() {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this, R.style.Dialog);
-
         alertBuilder.setTitle(R.string.add_task);
         alertBuilder.setView(R.layout.dialog_add_task);
         alertBuilder.setPositiveButton(R.string.add, null);
@@ -283,12 +256,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialog = null;
             }
         });
-
         dialog = alertBuilder.create();
-
         // This instead of listener to positive button in order to avoid automatic dismiss
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-
             @Override
             public void onShow(DialogInterface dialogInterface) {
 
@@ -302,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 });
             }
         });
-
         return dialog;
     }
 
